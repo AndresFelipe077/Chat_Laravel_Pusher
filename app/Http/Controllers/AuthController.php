@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -25,7 +24,7 @@ class AuthController extends Controller
     $data = $request->validated();
 
     if($data['password_confirmation'] != $data['password']){
-      return response()->json(['error' => 'Passwords do not match']);
+      return $this->error('Passwords do not match', 422);
     }
 
     $data['password'] = Hash::make($data['password']);

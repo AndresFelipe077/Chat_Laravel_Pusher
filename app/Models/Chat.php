@@ -15,6 +15,11 @@ class Chat extends Model
   protected $table = "chats";
   protected $guarded = ['id'];
 
+  public function participants(): HasMany
+  {
+    return $this->hasMany(ChatParticipant::class, 'chat_id');
+  }
+
   public function user(): BelongsTo
   {
     return $this->belongsTo(User::class, 'chat_id');
@@ -28,6 +33,12 @@ class Chat extends Model
   public function lastMessage(): HasOne
   {
     return $this->hasOne(ChatMessage::class, 'chat_id')->latest('updated_at');
+  }
+
+  public function scopeHasParticipant($query, int $userId){
+    return $query->whereHas('participants', function($q) use ($userId){
+      $q->where('user_id', $userId);
+    });
   }
 
 }
