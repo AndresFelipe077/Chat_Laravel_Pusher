@@ -26,7 +26,7 @@ class StoreMessageRequest extends FormRequest
         $chatModel = get_class(new Chat());
 
         return [
-            'chat_id' => "required|exists:{$chatModel}, id",
+            'chat_id' => "required|exists:{$chatModel},id",
             'message' => 'required|string',
         ];
     }

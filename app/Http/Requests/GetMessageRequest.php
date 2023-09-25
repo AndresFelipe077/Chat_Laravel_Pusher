@@ -26,7 +26,7 @@ class GetMessageRequest extends FormRequest
     $chatModel = get_class(new Chat());
 
 		return [
-			'chat_id'   => "required|exists:{$chatModel}, id",
+			'chat_id'   => "required|exists:{$chatModel},id",
       'page'      => 'required|numeric',
       'page_size' => 'nullable|numeric',
 		];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewMessageSent;
 use App\Http\Requests\GetMessageRequest;
 use App\Http\Requests\StoreMessageRequest;
 use App\Models\ChatMessage;
@@ -56,7 +57,24 @@ class ChatMessageController extends Controller
 
     /// TODO send broadcast event to pusher and send notification to onesignal services
 
+    $this->sentNotificationToOther($chatMessage);
+
+
     return $this->success($chatMessage, 'Message has been sent successfully');
+
+  }
+
+  /**
+   * Send notification to other users
+   *
+   * @param ChatMessage $chatMessage
+   * @return void
+   */
+  private function sentNotificationToOther(ChatMessage $chatMessage)
+  {
+    // $chatId = $chatMessage->chat_id;
+
+    broadcast(new NewMessageSent($chatMessage))->toOthers();
 
   }
 
