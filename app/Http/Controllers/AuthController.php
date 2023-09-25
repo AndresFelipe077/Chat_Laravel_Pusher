@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -21,7 +22,11 @@ class AuthController extends Controller
    */
   public function register(RegisterRequest $request): JsonResponse
   {
-    $data = $request->validate();
+    $data = $request->validated();
+
+    if($data['password_confirmation'] != $data['password']){
+      return response()->json(['error' => 'Passwords do not match']);
+    }
 
     $data['password'] = Hash::make($data['password']);
     $data['username'] = strstr($data['email'], '@', true);

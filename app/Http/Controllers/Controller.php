@@ -12,19 +12,19 @@ class Controller extends BaseController
   use AuthorizesRequests, ValidatesRequests;
 
   /**
-   * Returns as succes with json response
+   * Returns as success with json response
    *
    * @param mixed $data
    * @param string $message
-   * @param intr $statusCode
+   * @param int $statusCode
    * @return JsonResponse
    */
   public function success(mixed $data, string $message = "okay", int $statusCode = 200): JsonResponse
   {
     return response()->json([
-      'data'    => $data,
+      'data' => $data,
       'success' => true,
-      'message' => $message
+      'message' => $message,
     ], $statusCode);
   }
 
@@ -38,10 +38,9 @@ class Controller extends BaseController
   public function error(string $message, int $statusCode = 400): JsonResponse
   {
     return response()->json([
-      'data'    => null,
+      'data' => null,
       'success' => false,
       'message' => $message,
     ], $statusCode);
   }
-
 }
