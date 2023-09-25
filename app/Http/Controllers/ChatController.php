@@ -78,9 +78,9 @@ class ChatController extends Controller
    * Check if user and other user has previous chat or not
    *
    * @param integer $otherUserId
-   * @return bool
+   * @return mixed
    */
-  private function getPreviousChat(int $otherUserId): bool
+  private function getPreviousChat(int $otherUserId): mixed
   {
     $userId = auth()->user()->id;
 
