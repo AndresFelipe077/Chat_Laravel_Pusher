@@ -47,14 +47,11 @@ class ChatController extends Controller
     $data = $this->prepareStoreData($request);
 
     if ($data['userId'] === $data['otherUserId']) {
-      return $this->error('You can not create a chat with your own');
+      return $t u can not   chat with your own');
     }
 
     $previousChat = $this->getPreviousChat($data['otherUserId']);
-
-    if ($previousChat === null) {
-      $chat = Chat::create($data['data']);
-      $chat->participants()->createMany([
+ Many([
         [
           'user_id' => $data['userId']
         ],
